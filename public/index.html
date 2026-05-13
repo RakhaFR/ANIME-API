@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAL Scraper REST API</title>
+    <style>
+        :root {
+            --primary: #2e51a2;
+            --secondary: #1d439b;
+            --bg-color: #f5f5f5;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #e0e0e0;
+            --code-bg: #282c34;
+            --code-color: #abb2bf;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-bottom: 4px solid var(--secondary);
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-color);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        .endpoint {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .method {
+            background-color: #4caf50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .path a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .path a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        table, th, td {
+            border: 1px solid var(--border);
+        }
+
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9f9f9;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            color: #856404;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>MAL Scraper REST API</h1>
+        <p>A simple RESTful API for scraping MyAnimeList data.</p>
+    </header>
+
+    <div class="container">
+        <div class="warning">
+            <strong>⚠️ Disclaimer:</strong> This API is for educational and personal use only. Please respect MyAnimeList's Terms of Service.
+        </div>
+
+        <div class="card">
+            <h2>🏥 System</h2>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="path"><a href="/health" target="_blank">/health</a></span>
+            </div>
+            <p>Check server status and cache statistics.</p>
+        </div>
+
+        <div class="card">
+            <h2>🎌 Anime Endpoints</h2>
+            
+            <h3>Top Anime</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="path"><a href="/api/anime/top" target="_blank">/api/anime/top</a></span>
+            </div>
+            <p>Get the top anime list.</p>
+            <ul>
+                <li><code>?type=</code> all, airing, upcoming, tv, movie, ova, ona, special (default: all)</li>
+                <li><code>?limit=</code> 1-50 (default: 25)</li>
+            </ul>
+
+            <h3>Seasonal Anime</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="path"><a href="/api/anime/seasonal" target="_blank">/api/anime/seasonal</a></span>
+            </div>
+            <p>Get currently airing seasonal anime.</p>
+
+            <h3>Anime Detail</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="path"><a href="/api/anime/5114" target="_blank">/api/anime/:id</a></span>
+            </div>
+            <p>Get full details for a specific anime ID.</p>
+        </div>
+
+        <div class="card">
+            <h2>📚 Manga Endpoints</h2>
+            
+            <h3>Top Manga</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="path"><a href="/api/manga/top" target="_blank">/api/manga/top</a></span>
+            </div>
+            <p>Get the top manga list.</p>
+             <ul>
+                <li><code>?type=</code> all, manga, novels, oneshots, doujin, manhwa, manhua (default: all)</li>
+                <li><code>?limit=</code> 1-50 (default: 25)</li>
+            </ul>
+
+            <h3>Manga Detail</h3>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="path"><a href="/api/manga/2" target="_blank">/api/manga/:id</a></span>
+            </div>
+            <p>Get full details for a specific manga ID.</p>
+        </div>
+
+        <div class="card">
+            <h2>🔍 Search</h2>
+            <div class="endpoint">
+                <span class="method">GET</span>
+                <span class="path"><a href="/api/search?q=naruto" target="_blank">/api/search?q={query}</a></span>
+            </div>
+            <p>Search for anime or manga.</p>
+             <ul>
+                <li><code>?q=</code> Your search keyword (required)</li>
+                <li><code>?type=</code> anime, manga, all (default: anime)</li>
+                <li><code>?limit=</code> 1-50 (default: 20)</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Built with Node.js, Express, Axios & Cheerio</p>
+        </footer>
+    </div>
+
+</body>
+</html>
